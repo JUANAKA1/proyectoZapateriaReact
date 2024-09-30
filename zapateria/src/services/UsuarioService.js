@@ -8,5 +8,8 @@ export class UsuarioService {
    save(usuario){
     return axios.post(this.baseUrl +"/nuevo", usuario). then(res =>res.data);
    }
+   delete(id){
+    return axios.post(this.baseUrl + "/delete/" + id).then(res => res.data);
+   }
 
 }

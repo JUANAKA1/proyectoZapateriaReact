@@ -29,6 +29,9 @@ export default class App extends Component{
                 apellido:null,
                 email:null,
                 telefono:null
+            },
+            selectedUsuario:{
+
             }
         };
         this.items=[
@@ -40,12 +43,12 @@ export default class App extends Component{
             {
                 label:"Editar",
                 icon:"pi pi-fw pi-user-edit",
-                command: ()=> {alert('Edited!')}
+                command: ()=> {alert('Editar!')}
             },
             {
                 label:"Eliminar",
                 icon:"pi pi-fw pi-user-minus",
-                command: ()=> {alert('Deleted!')}
+                command: ()=> {this.delete()}
             }
         ];
 
@@ -75,18 +78,26 @@ export default class App extends Component{
                     telefono:null
                 }
             });
-            this.Toast.current.show({severity:"success", sumary:"Atencion!", detail:"se guardó el registro correctamente",});
+            this.Toast.current.show({severity:"success", summary:"Atencion!", detail:"El registro se guardó correctamente",});
             this.usuarioService.getAll().then(data => this.setState({usuarios: data}))
         })
     }
-
+    delete(){
+        if(window.confirm("¿Desea eliminar el registro?")){
+            this.usuarioService.delete(this.state.selectedUsuario.id).then(data=> { 
+                this.Toast.current.show({severity:"success", summary:"Atencion!", detail:"Se elimino el registro correctamente",});
+                this.usuarioService.getAll().then(data => this.setState({usuarios: data}))
+            })
+        }
+    }
     render(){
         return(
         <div style={{width:'80%', margin:'40px auto 0px'}}>
             <Menubar model={this.items}/>
             <br/>
             <Panel header="Gestion de Usuarios Zapateria JM" >
-            <DataTable value={this.state.usuarios} >
+            <DataTable value={this.state.usuarios} paginator rows={5} rowsPerPageOptions={[5, 10, 25, 50]} selectionMode="single" selection={this.state.selectedUsuario}
+            onSelectionChange={(e)=> this.setState({selectedUsuario: e.value})}>
                 <Column field='id' header='ID'></Column>
                 <Column field='nombre' header='Nombres'></Column>
                 <Column field='apellido' header='Apellidos'></Column>
