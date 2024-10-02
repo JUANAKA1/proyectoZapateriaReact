@@ -57,6 +57,7 @@ export default class App extends Component {
             id: null,
             nombre: null,
             apellido: null,
+            cc: null,
             email: null,
             telefono: null
         };
@@ -110,6 +111,7 @@ export default class App extends Component {
                         <Column field="id" header="ID"></Column>
                         <Column field="nombre" header="Nombres"></Column>
                         <Column field="apellido" header="Apellidos"></Column>
+                        <Column field="cc" header="Cedula"></Column>
                         <Column field="email" header="Correo"></Column>
                         <Column field="telefono" header="Teléfono"></Column>
                     </DataTable>
@@ -129,6 +131,11 @@ export default class App extends Component {
                     <FloatLabel>
                         <InputText style={{ width: "100%" }} value={this.state.usuario.apellido} id="apellido" onChange={(e) => this.updateUsuarioField('apellido', e.target.value)} />
                         <label htmlFor="apellido">Apellido</label>
+                    </FloatLabel> <br />
+
+                    <FloatLabel>
+                        <InputText style={{ width: "100%" }} value={this.state.usuario.cc} id="cc" onChange={(e) => this.updateUsuarioField('cc', e.target.value)} />
+                        <label htmlFor="cc">Cedula</label>
                     </FloatLabel> <br />
                     
                     <FloatLabel>
