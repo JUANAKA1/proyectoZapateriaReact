@@ -15,7 +15,4 @@ export class UsuarioService {
         return axios.post(this.baseUrl + "/delete/" + id).then(res => res.data);
     }
 
-    modify(usuario) {
-        return axios.put(this.baseUrl + "/modificar", usuario).then(res => res.data);
-    }
 }
